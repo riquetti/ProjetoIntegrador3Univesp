@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artistas e Livros por Gênero</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .left-panel, .right-panel {
+            width: 48%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Faixas Mais Tocadas do Deezer e Livros da Biblioteca</h1>
+
+    <!-- Filtro de Gênero -->
+    <form method="POST">
+        {% csrf_token %}
+        <label for="genero">Escolha o gênero:</label>
+        <select name="genero" id="genero">
+            {% for genero in generos %}
+                <option value="{{ genero.id }}">{{ genero.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <div class="container">
+        <!-- Painel esquerdo: Faixas mais tocadas do Deezer -->
+        <div class="left-panel">
+            <h2>Faixas Mais Tocadas</h2>
+                {% if faixas %}
+                    <ul>
+                        {% for faixa in faixas %}
+                            <li>{{ faixa.title }} - {{ faixa.artist.name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Nenhuma faixa encontrada.</p>
+                {% endif %}
+
+        </div>
+
+        <!-- Painel direito: Livros da Biblioteca -->
+        <div class="right-panel">
+            <h2>Livros da Biblioteca</h2>
+            {% if livros %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Obra</th>
+                            <th>Compositor</th>
+                            <th>Arranjador</th>
+                            <th>Gênero</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for livro in livros %}
+                            <tr>
+                                <td>{{ livro.obra }}</td>
+                                <td>{{ livro.compositor }}</td>
+                                <td>{{ livro.arranjador }}</td>
+                                <td>{{ livro.genero }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Nenhum livro encontrado.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
