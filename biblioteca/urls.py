@@ -15,6 +15,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('sobre/', views.sobre_view, name='sobre'),
     path('index/', views.index_view, name='index'),
-    path('api/', include('livro.urls')),
     path('deezer/', include('deezer_integration.urls')),
+    # path('spotify/', include('spotify_integration.urls')),
 ]

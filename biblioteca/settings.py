@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'usuarios',
     'rest_framework',
     'deezer_integration',
+    #'spotify_integration',
 ]
 
 MIDDLEWARE = [

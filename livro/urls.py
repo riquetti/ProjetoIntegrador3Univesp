@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import LivroList
 from . import views
+from deezer_integration import views as deezer_views
 
 urlpatterns = [
     path('home/', views.home, name = 'home'),
@@ -14,4 +15,6 @@ urlpatterns = [
     path('seus_empretismos', views.seus_emprestimos, name="seus_emprestimos"),
     path('processa_avaliacao', views.processa_avaliacao, name="processa_avaliacao"),
     path('obras/', LivroList.as_view(), name='Obras-list'),
+
+    path('artistas-por-genero/', deezer_views.artistas_por_genero, name='artistas_por_genero'),
 ]
