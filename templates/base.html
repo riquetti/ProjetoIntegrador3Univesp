@@ -9,80 +9,111 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 
     <!-- Título do head -->
-    <title>{% block 'titulo_head' %} {% endblock %}</title>
+    <title>{% block titulo_head %}{% endblock %}</title>
    
     <!-- Estilo CSS -->
     <style>
-
         body {
-            /* background-image: url('https://scontent.fplu19-1.fna.fbcdn.net/v/t39.30808-6/461338423_1053425566790877_2811137426748909039_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=AbEja7cyGMAQ7kNvgF0RgWt&_nc_ht=scontent.fplu19-1.fna&_nc_gid=AGMDoB-d5Tv9u2CjFLQ6-ZP&oh=00_AYBtPg7Hy8H_Y6B4r0_uBERwW7JOp_LBbn_JpZnk_sirxw&oe=6704AFFA'); */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* Para manter a imagem fixa enquanto rola a página */
-            /* background-color: antiquewhite; Cor de fundo */
-            background-color: #f0f0f0; /* Cor de fundo */
-            color:#040100
+            background-color: #f0f0f0;
+            color: #040100;
         }
-
+    
         .table.table-striped {
-            color:#040100
+            color: #040100;
         }
-
+    
         footer {
-            background-color: #333; /* Cor de fundo do rodapé para contraste */
-            color: white; /* Cor do texto do rodapé */
-            padding: 10px; /* Espaçamento interno do rodapé */
-            text-align: center; /* Centraliza o texto no rodapé */
-            position: fixed; /* Fixa o rodapé na parte inferior da página */
-            width: 100%; /* Largura total do rodapé */
-            bottom: 0; /* Posiciona o rodapé na parte inferior */
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
-
+    
         footer a {
-            color: #1e90ff; /* Cor do link no rodapé */
+            color: #1e90ff;
         }
-
+    
         footer a:hover {
-            color: #ff6347; /* Cor do link ao passar o mouse */
+            color: #ff6347;
         }
-
+    
         footer p {
-            display: inline-block; /* Coloca os parágrafos na mesma linha */
-            margin: 0; /* Remove margens para evitar espaçamento extra */
-        }  
-
+            display: inline-block;
+            margin: 0;
+        }
+    
         .card {
             background-color: white;
-            border-radius:20px;
-            box-shadow: 5px 5px 25px rgba(255, 255, 255, 0.5); 
+            border-radius: 20px;
+            box-shadow: 5px 5px 25px rgba(255, 255, 255, 0.5);
+            color: #040100;
         }
-
-        /* Estilos de alto contraste */
-        body.alto-contraste {
-            background-color: black;
-            color: white;
+    
+        /* ----- ALTO CONTRASTE ACESSÍVEL ----- */
+        body.alto-contraste,
+        .alto-contraste {
+            background-color: #000 !important;
+            color: #fff !important;
         }
-
-        .livro.alto-contraste {
-            color: white;
+    
+        body.alto-contraste a,
+        .alto-contraste a {
+            color: #00ffff !important; /* Ciano claro para links */
         }
-
+    
+        body.alto-contraste a:hover,
+        .alto-contraste a:hover {
+            color: #ff0 !important; /* Amarelo no hover */
+        }
+    
+        body.alto-contraste .card,
         .card.alto-contraste {
-            background-color: black;
-            color: white;
+            background-color: #000 !important;
+            color: #fff !important;
             box-shadow: 5px 5px 25px rgba(255, 255, 255, 0.5);
         }
-
-        body.alto-contraste table {
-            background-color: #333333;  /* Fundo escuro para as tabelas */
-            color: #ffffff;  /* Texto claro nas tabelas */
+    
+        body.alto-contraste .table,
+        body.alto-contraste table,
+        body.alto-contraste th,
+        body.alto-contraste td {
+            background-color: #333 !important;
+            color: #fff !important;
         }
-
+    
+        body.alto-contraste .btn,
+        .btn.alto-contraste {
+            background-color: #222 !important;
+            color: #fff !important;
+            border: 1px solid #fff;
+        }
+    
+        body.alto-contraste .dropdown-menu {
+            background-color: #111 !important;
+            color: #fff !important;
+        }
+    
+        body.alto-contraste .modal-content {
+            background-color: #000 !important;
+            color: #fff !important;
+        }
+    
+        body.alto-contraste input,
+        body.alto-contraste select,
+        body.alto-contraste textarea {
+            background-color: #111 !important;
+            color: #fff !important;
+            border: 1px solid #fff;
+        }
+    
     </style>
+    
 
     <!-- Conteúdo extra do head -->
-    {% block 'head_extra' %} {% endblock %}
+    {% block body_extra %}{% endblock %}
 
 </head>
 
@@ -247,7 +278,8 @@
 
 <!-- Scripts -->
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
@@ -307,24 +339,21 @@
     //Script para alto contraste
 
     function toggleContraste() {
-    // Alterna a classe 'alto-contraste' no corpo da página
         document.body.classList.toggle('alto-contraste');
-        lista_livros = document.getElementsByClassName("livro");
-        for (i of lista_livros) {
-            i.classList.toggle('alto-contraste');
-        lista_cards = document.getElementsByClassName("card");
-        }
-        for (j of lista_cards) {
-            j.classList.toggle('alto-contraste');
-        }
-
-    // Salva a preferência do usuário no localStorage
+        // Salvar no localStorage (opcional, para manter ao recarregar)
         if (document.body.classList.contains('alto-contraste')) {
-            localStorage.setItem('contraste', 'ativo');
+            localStorage.setItem('modoContraste', 'on');
         } else {
-            localStorage.removeItem('contraste');
+            localStorage.removeItem('modoContraste');
         }
+    }
+
+    // Ao carregar a página, aplicar o modo salvo
+    window.onload = function () {
+        if (localStorage.getItem('modoContraste') === 'on') {
+            document.body.classList.add('alto-contraste');
         }
+    };
     
     // Ao carregar a página, verifica se o usuário já ativou o alto contraste antes
         window.onload = function() {
